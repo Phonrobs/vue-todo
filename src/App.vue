@@ -1,33 +1,43 @@
 <template>
-  <section>
-    <h1>{{ title }}</h1>   
+   <v-app>
+     <v-app-bar app color="teal">
+       <v-toolbar-title>Vue Todo App</v-toolbar-title>
+     </v-app-bar>
 
-    <form>
-      <input v-model="newText" type="text" placeholder="กรอกข้อความที่ต้องการเพิ่ม" />
-      <button type="button" @click="addItem()">เพิ่ม</button>
-    </form>
-    
-    <ul>
-      <li v-for="(name, index) in items" :key="index">
-        <span>{{ name }}</span>
-        <button type="button" @click="deleteItem(index)">ลบ</button>
-      </li>
-    </ul>
-  </section>
+     <v-content>
+       <v-container>
+         <v-card>
+           <v-card-text>
+             <v-text-field v-model="newText" solo label="กรอกข้อความที่ต้องการเพิ่ม" append-outer-icon="mdi-plus" @click:append-outer="addItem()"></v-text-field>
+           </v-card-text>
+
+           <v-list>
+             <v-list-item v-for="(item, index) in items" :key="index">
+               <v-list-item-action>
+                 <v-icon>mdi-file-settings-outline</v-icon>
+               </v-list-item-action>
+               <v-list-item-content>
+                 <v-list-item-title>{{ item }}</v-list-item-title>
+               </v-list-item-content>
+               <v-list-item-action>
+                 <v-btn @click="deleteItem(index)" color="red">ลบ</v-btn>
+               </v-list-item-action>
+             </v-list-item>
+           </v-list>
+         </v-card>
+       </v-container>
+     </v-content>
+   </v-app>
 </template>
 
 <script>
 export default {
   name: 'App',
-
-  data() {
-    return {
-      title: 'Hello World',
-      style: 'color:red',
-      items: ['ไปดูหนัง', 'ซื้อไข่ไก่', 'ล้างห้องน้ำ', 'ดู Netflix'],
-      newText: ''
-    };
-  },
+ 
+  data: () => ({
+    items: ['Apple', 'Banana', 'Mango'],
+    newText: ''
+  }),
 
   methods: {
     deleteItem(index) {
@@ -41,6 +51,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>
